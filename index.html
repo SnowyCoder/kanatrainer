@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SnowyCoder Home</title>
+
+  <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .monospace {
+      font-family: "Courier New", Courier, monospace;
+    }
+    .wordboard {
+      font-size: 28px;
+    }
+    hr.hdiv{
+    	border-top: 1px solid #8c8b8b;
+    }
+  </style>
+</head>
+<body style="padding-top: 90px">
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+       <div class="collapse navbar-collapse">>
+           <ul class="navbar-nav">
+               <li class="nav-item">
+                   <a class="nav-link" href="../index.html#home">Home</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="../index.html##projects">Projects</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="../index.html##contacts">Contacts</a>
+               </li>
+           </ul>
+       </div>
+   </nav>
+  <div class="container">
+    <!-- Game Board -->
+    <div>
+      <div id="question-container" class="wordboard">
+        <div id="game-question">Watakana</div>
+        <input id="game-answer" type="text">
+        <button id="game-question-done" type="button" class="btn btn-primary btn-lg" onclick="nextPhase()">
+          Done
+        </button>
+      </div>
+      <!-- Wrong answer div -->
+      <div id="result-container">
+        <div id="result-wrong-container">
+          <table class="monospace">
+            <span class="wordboard" style="color: red;">
+              Wrong, <span id="answer-wrong-question"></span> reads <span id="answer-wrong-answer"></span>
+            </span>
+            <tr>
+              <td><h2> input: </h2></td>
+              <td><h1 id="displayf"></h1></td>
+            </tr>
+            <tr>
+              <td><h2> real: </h2></td>
+              <td><h1 id="displayt"></h1></td>
+            </tr>
+          </table>
+        </div>
+        <div id="result-right-container" class="wordboard">
+          <span class="wordboard" style="color: green;">
+            Great! <span id="anwser-right-question"></span> reads <span id="answer-right-answer"></span>
+          </span>
+        </div>
+        <button id="game-next-word" type="button" class="btn btn-primary btn-lg" onclick="nextPhase()">
+          Next Word
+        </button>
+      </div>
+    </div>
+
+    <hr class="hdiv"/>
+
+    <!-- Options -->
+    <div class="container">
+      <!-- Hiragana/Katakana selector-->
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input type="radio" name="simple-options-kana" id="options-hiragana" autocomplete="off" checked> Hiragana
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="simple-options-kana" id="options-katakana" autocomplete="off"> Katakana
+        </label>
+      </div>
+      <div id="simple-options-container" class="collapse show">
+        <!-- Difficulty selector -->
+        <div>
+          <h4>Difficulty level: <output id="simpleOptionsDifficultyOut"></output></h4>
+          <input type="range" min="1" max="10" value="3" class="form-control-range" id="simple-options-difficulty" oninput="simpleOptionsDifficultyOut.value = this.value;">
+        </div>
+        <!-- Length selector -->
+        <div>
+          <h4>World length: <output id="simpleOptionsLengthOut"></output></h4>
+          <input type="range" min="1" max="10" value="3" class="form-control-range" id="simple-options-length" oninput="simpleOptionsLengthOut.value = this.value;">
+        </div>
+      </div>
+      <div id="complex-options-container" class="collapse">
+        <div>
+          <!-- Rows -->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-vowels" value="vowels">
+            <label class="form-check-label" for="options-complex-row-vowels">Vowels</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-k" value="k">
+            <label class="form-check-label" for="options-complex-row-k">K</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-s" value="s">
+            <label class="form-check-label" for="options-complex-row-s">S</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-t" value="t">
+            <label class="form-check-label" for="options-complex-row-t">T</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-n" value="n">
+            <label class="form-check-label" for="options-complex-row-n">N</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-h" value="h">
+            <label class="form-check-label" for="options-complex-row-h">H</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-m" value="m">
+            <label class="form-check-label" for="options-complex-row-m">M</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-y" value="y">
+            <label class="form-check-label" for="options-complex-row-y">Y</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-r" value="r">
+            <label class="form-check-label" for="options-complex-row-r">R</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="options-complex-row-w" value="w">
+            <label class="form-check-label" for="options-complex-row-k">W</label>
+          </div>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="options-complex-diatrics" value="diatrics">
+        <label class="form-check-label" for="options-complex-row-diatrics">Diatrics</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="options-complex-diagraphs" value="diagraphs">
+        <label class="form-check-label" for="options-complex-row-diagraphs">Diagraphs</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="options-complex-diatrics-diagraphs" value="diatrics-diagraphs">
+        <label class="form-check-label" for="options-complex-row-diatrics-diagraphs">Diatrics with Diagraphs</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="options-complex-obsolete" value="obsolete">
+        <label class="form-check-label" for="options-complex-row-obsolete">Obsolete kana</label>
+      </div>
+      <div>
+        <h4>World length: <output id="complexOptionsLengthOut"></output></h4>
+        <input type="range" min="1" max="10" value="3" class="form-control-range" id="options-complex-length" oninput="complexOptionsLengthOut.value = this.value;">
+      </div>
+      <!--div data-role="rangeslider">
+        <label for="wlen-min">World Length:</label>
+        <input type="range" name="length-min" id="options-wlen-min" value="3" min="0" max="10">
+        <label for="wlen-max">World Length:</label>
+        <input type="range" name="length-max" id="options-wlen-max" value="7" min="0" max="10">
+      </div-->
+    </div>
+      <button id="options-apply" type="button" class="btn btn-success">
+        Apply
+      </button>
+      <button id="complex-options-toggle" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+        Advanced Options
+      </button>
+    </div>
+  </div>
+
+
+  <script src="https://unpkg.com/wanakana"></script>
+  <script src="diff.js" charset="unicode"></script>
+  <script src="logic.js" charset="unicode"></script>
+  <script src="index.js" charset="unicode"></script>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>
