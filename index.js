@@ -69,7 +69,6 @@ function printDifference(from, to)  {
 
 function toggleComplexOptions(e) {
   var complex = !document.getElementById('complex-options-toggle').classList.contains("active");
-  console.log("COMPLEX: ", complex);
   $('#simple-options-container').collapse(complex ? 'hide' : 'show');
   $('#complex-options-container').collapse(complex ? 'show' : 'hide');
 }
@@ -126,8 +125,13 @@ function readOptionsComplex() {
   };
 }
 
+function reloadOptions() {
+  currentOptions = readOptions();
+  currentAlphabet = generateAlphabet(currentOptions);
+  console.log("Options: ", currentOptions);
+}
+
 function drawPhase() {
-   console.log("Drawing ", currentPhase);
   if (currentPhase == Phase.write) {
     document.getElementById("game-question").innerText = currentQuestion;
     document.getElementById("game-answer").value = "";
@@ -151,15 +155,12 @@ function drawPhase() {
 }
 
 function setPhase(phase) {
-  console.log("Setting phase: ", phase);
   if (phase == Phase.score) {
     playerAnswer = document.getElementById("game-answer").value;
     isAnswerRight = playerAnswer == currentAnswer;
-    console.log("Input:", playerAnswer, "vs", currentAnswer, isAnswerRight);
   } else {
     currentQuestion = generateKana(alphabet, currentOptions);
     currentAnswer = wanakana.toRomaji(currentQuestion);
-    console.log("Question: ", currentQuestion, " = ", currentAnswer);
   }
   currentPhase = phase;
   drawPhase();
@@ -171,11 +172,7 @@ function nextPhase() {
 
 window.onload = function() {
   document.getElementById('complex-options-toggle').onclick = toggleComplexOptions;
-  document.getElementById('options-apply').onclick = function() {
-    currentOptions = readOptions();
-    currentAlphabet = generateAlphabet(currentOptions);
-    console.log("Options: ", currentOptions);
-  }
+  document.getElementById('options-apply').onclick = reloadOptions;
   // Reload sliders with output value
   document.getElementById("simple-options-difficulty").oninput();
   document.getElementById("simple-options-length").oninput();
@@ -187,5 +184,6 @@ window.onload = function() {
       nextPhase();
     }
   }
+  reloadOptions();
   setPhase(Phase.write);
 }

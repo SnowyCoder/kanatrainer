@@ -88,7 +88,6 @@ function generateAlphabet(options) {
   if (options['katakana']) {
     alphabet = alphabet.map(wanakana.toKatakana);
   }
-  console.log("Alphabet: ", options, alphabet);
   return alphabet;
 }
 
