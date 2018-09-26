@@ -155,7 +155,7 @@ function drawPhase() {
 }
 
 function filterInput(txt) {
-  return txt.toLocaleLowerCase();
+  return txt.toLowerCase();
 }
 
 function setPhase(phase) {
