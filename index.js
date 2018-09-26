@@ -154,9 +154,13 @@ function drawPhase() {
   }
 }
 
+function filterInput(txt) {
+  return txt.toLocaleLowerCase();
+}
+
 function setPhase(phase) {
   if (phase == Phase.score) {
-    playerAnswer = document.getElementById("game-answer").value;
+    playerAnswer = filterInput(document.getElementById("game-answer").value);
     isAnswerRight = playerAnswer == currentAnswer;
   } else {
     currentQuestion = generateKana(alphabet, currentOptions);
